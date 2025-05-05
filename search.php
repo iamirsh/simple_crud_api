@@ -3,9 +3,11 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$data = json_decode(file_get_contents('php://input'), true);
+// $data = json_decode(file_get_contents('php://input'), true);
 
-$search_value = $data['search'];
+// $search_value = $data['search'];
+
+$search_value = isset($_GET['search']) ? $_GET['search'] : die();
 
 include "config.php";
 
