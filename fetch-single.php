@@ -3,9 +3,15 @@
 header('Content-Type: application/json');
 header('Acess-Control-Allow-Origin: *');
 
+$data = json_decode(file_get_contents('php://input'), true);
+
+$student_id = $data['sid'];
+
 include "config.php";
 
-$sql = "SELECT * FROM students";
+
+
+$sql = "SELECT * FROM students WHERE id = {$student_id}";
 $result = mysqli_query($conn,$sql) or die("SQL Query Failed");
 
 if(mysqli_num_rows($result) > 0){
