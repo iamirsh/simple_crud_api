@@ -1,29 +1,45 @@
 <?php
-
 header('Content-Type: application/json');
-header('Acess-Control-Allow-Origin: *');
-header('Acess-Control-Allow-Methods: PUT');
-header('Acess-Control-Allow-Headers: Acess-Control-Allow-Headers,Content-Type,Acess-Control-Allow-Methods,Acess-Control-Allow-Methods,Authorization,X-Requested-Width');
-
-$data = json_decode(file_get_contents('php://input'), true);
-
-$id = $data['sid'];
-$name = $data['sname'];
-$age = $data['sage'];
-$city = $data['scity'];
+header('Access-Control-Allow-Origin: *');
 
 include "config.php";
+require 'vendor/autoload.php';
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
+$headers = getallheaders();
+$authHeader = $headers['Authorization'] ?? '';
 
-
-$sql = "UPDATE students SET name = '{$name}',age = {$age},city = '{$city}' WHERE id = {$id}";
-
-
-if(mysqli_query($conn,$sql)){
-    echo json_encode(array('message'=> 'Student record updated', 'status'=> true));
-}else{
-    echo json_encode(array('message'=> 'Student record not updated', 'status'=> false));
+if (empty($authHeader)) {
+    echo json_encode(['message' => 'Authorization required']);
+    exit;
 }
 
+$token = str_replace('Bearer ', '', $authHeader);
 
+try {
+    $key = new Key("your_secret_key", 'HS256');
+    $decoded = JWT::decode($token, $key);
+
+    // Get the input data
+    $data = json_decode(file_get_contents("php://input"));
+    $sid = $data->sid;
+    $sname = $data->sname;
+    $sage = $data->sage;
+    $scity = $data->scity;
+
+    // Update query
+    $sql = "UPDATE students SET name = ?, age = ?, city = ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssi', $sname, $sage, $scity, $sid);
+    
+    if ($stmt->execute()) {
+        echo json_encode(['message' => 'Student updated successfully']);
+    } else {
+        echo json_encode(['message' => 'Failed to update student']);
+    }
+
+} catch (Exception $e) {
+    echo json_encode(['message' => 'Unauthorized', 'status' => false]);
+}
 ?>
