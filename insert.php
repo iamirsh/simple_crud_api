@@ -1,5 +1,4 @@
 <?php
-
 header('Content-Type: application/json');
 header('Acess-Control-Allow-Origin: *');
 header('Acess-Control-Allow-Methods: POST');
@@ -13,10 +12,7 @@ $city = $data['scity'];
 
 include "config.php";
 
-
-
 $sql = "INSERT INTO students(name,age,city) VALUES ('{$name}',{$age},'{$city}')";
-
 
 if(mysqli_query($conn,$sql)){
     echo json_encode(array('message'=> 'Student record inserted', 'status'=> true));

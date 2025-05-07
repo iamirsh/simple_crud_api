@@ -1,11 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    
+
+<body class="bg-gray-300">
+    <div class="py-10 px-20">
+        <div class="flex bg-red-400 p-5 justify-between">
+            <h1 class="text-white font-bold text-2xl">PHP REST API CRUD</h1>
+            <input class="bg-white" type="text" id="search">
+        </div>
+        <div class="flex items-center bg-orange-50 p-5 justify-between">
+            <div class="flex gap-5 items-center">
+                <h5>Name:</h5>
+                <input class="outline-none bg-white p-1" type="text" id="search">
+            </div>
+            <div class="flex gap-5 items-center">
+                <h5>Age:</h5>
+                <input class="outline-none bg-white p-1" type="number" id="age">
+            </div>
+            <div class="flex gap-5 items-center">
+                <h5>City:</h5>
+                <input class="outline-none bg-white p-1" type="text" id="city">
+            </div>
+            <button class="bg-blue-700 py-2 px-4 text-white">Save</button>
+        </div>
+        <!-- table -->
+        
+
+<div class="relative overflow-x-auto shadow-md">
+    <table class="w-full text-sm text-left rtl:text-right">
+        <thead class="text-xs text-white uppercase bg-red-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Age
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    City
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Edit
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
+                    1
+                </th>
+                <td class="px-6 py-4">
+                    Irshad
+                </td>
+                <td class="px-6 py-4">
+                    27
+                </td>
+                <td class="px-6 py-4">
+                   Delhi
+                </td>
+                <td class="px-6 py-4">
+                    <button class="font-medium bg-green-400 py-2 px-4 text-white">Edit</button>
+                </td>
+                <td class="px-6 py-4">
+                    <button class="font-medium bg-red-400 py-2 px-4 text-white">Delete</button>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+    </div>
 </body>
+
 </html>
